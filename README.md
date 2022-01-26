@@ -18,3 +18,5 @@ Users will be able to create a hair routine, where they can add, delete, and edi
 
 ## ERD
 ![Inch-by-inch](https://user-images.githubusercontent.com/89564513/151240985-ef828ded-a24a-4370-9b95-593aa65f34bd.png)
+
+## End Points
