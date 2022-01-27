@@ -30,7 +30,7 @@ public class CategoryService {
         if (category.isPresent()) {
             return category;
         } else {
-            throw new InformationNotFoundException("Category not found")
+            throw new InformationNotFoundException("Category not found");
         }
     }
 
@@ -51,7 +51,7 @@ public class CategoryService {
         if (category.isPresent()) {
             if (categoryObject.getName().equals(category.get().getName())) {
                 System.out.println("same name");
-                throw new InformationExistException("category already exist")
+                throw new InformationExistException("category already exist");
             } else {
                 Category updateCategory = categoryRepository.findById(categoryId).get();
                 updateCategory.setName(categoryObject.getName());
