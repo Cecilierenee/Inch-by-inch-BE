@@ -1,5 +1,7 @@
 package com.inchbyinch.inchbyinch.controller;
 
+import com.inchbyinch.inchbyinch.model.Category;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -30,4 +32,4 @@ public class CategoryController {
         return "deleting the category with the id of " + categoryId;
     }
 }
-}
+
