@@ -90,6 +90,23 @@ public class CategoryService {
         }
     }
 
+    public Routine getCategoryRoutine(Long categoryId, Long routineId) {
+        System.out.println("service calling getCategoryRoutine");
+        Optional<Category> category = categoryRepository.findById(categoryId);
+        if (category.isPresent()) {
+            Optional<Routine> routine = routineRepository.findByCategoryId(categoryId).stream().filter(
+                    p -> p.getId().equals(routineId)).findFirst();
+            if (routine.isEmpty()) {
+                throw new InformationNotFoundException("Routine not found");
+            } else {
+                return routine.get();
+            }
+        } else {
+            throw new InformationNotFoundException("Category not fount");
+        }
+
+    }
+
     public List<Routine> getCategoryRoutines(Long categoryId) {
         System.out.println("service calling getCategoryRoutines");
         Optional<Category> category = categoryRepository.findById(categoryId);
