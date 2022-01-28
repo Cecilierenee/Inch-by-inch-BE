@@ -1,5 +1,9 @@
 package com.inchbyinch.inchbyinch.model;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
@@ -16,6 +20,10 @@ public class Category {
 
     @Column
     private String description;
+
+    @OneToMany(mappedBy = "category", orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Routine> routineList;
 
     public Category(Long id, String name, String description) {
         this.id = id;
@@ -56,5 +64,11 @@ public class Category {
         return "Category{" + "id=" + id + ", name='" + name + '\'' + ", description='" + description + '\'' + '}';
     }
 
+    public List<Routine> getRoutineList() {
+        return routineList;
+    }
 
+    public void setRoutineList(List<Routine> routineList) {
+        this.routineList = routineList;
+    }
 }
