@@ -26,6 +26,11 @@ public class Routine {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
+
     public Routine() {
     }
 
@@ -61,6 +66,8 @@ public class Routine {
         isPublic = isPublic;
     }
 
+
+
     @Override
     public String toString() {
         return "Routine{" + "id=" + id + ", products='" + products + '\'' + ", steps='" + steps + '\'' + '}';
@@ -74,7 +81,13 @@ public class Routine {
         this.category = category;
     }
 
-    //    private Long user_id;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
 
 }
