@@ -59,11 +59,17 @@ public class CategoryController {
         return categoryService.createCategoryRoutine(categoryId, routineObject);
     }
 
+    @GetMapping("/categories/{categoryId}/routines")
+    public List<Routine> getCategoryRoutines(@PathVariable(value = "categoryId") Long categoryId) {
+        System.out.println("calling getCategoryRoutines");
+        return categoryService.getCategoryRoutines(categoryId);
+    }
+
     @GetMapping("/categories/{categoryId}/routines/{routineId}")
     public Routine getCategoryRoutine(@PathVariable(value = "categoryId")Long categoryId,
                                       @PathVariable(value = "routineId") Long routineId) {
         System.out.println("Calling getCategoryRoutine");
-        return categoryService.updateCategoryRoutine(categoryId, routineId);
+        return categoryService.getCategoryRoutine(categoryId, routineId);
     }
 
     @PutMapping("/categories/{categoryId}/routines/{routineId}")

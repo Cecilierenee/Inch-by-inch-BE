@@ -3,16 +3,20 @@ package com.inchbyinch.inchbyinch.service;
 import com.inchbyinch.inchbyinch.exceptions.InformationExistException;
 import com.inchbyinch.inchbyinch.exceptions.InformationNotFoundException;
 import com.inchbyinch.inchbyinch.model.Category;
+import com.inchbyinch.inchbyinch.model.Routine;
 import com.inchbyinch.inchbyinch.repository.CategoryRepository;
+import com.inchbyinch.inchbyinch.repository.RoutineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 public class CategoryService {
     private CategoryRepository categoryRepository;
+    private RoutineRepository routineRepository;
 
     @Autowired
     public void setCategoryRepository(CategoryRepository categoryRepository) {
@@ -72,6 +76,48 @@ public class CategoryService {
             return category;
         } else {
             throw new InformationNotFoundException("Category not found");
+        }
+    }
+
+    public Routine createCategoryRoutine(Long categoryId, Routine routineObject) {
+        System.out.println("Service calling createCategoryRoutine");
+        try {
+            Optional category = categoryRepository.findById(categoryId);
+            routineObject.setCategory((Category) category.get());
+            return routineRepository.save(routineObject);
+        } catch (NoSuchElementException e) {
+            throw new InformationNotFoundException("category not found");
+        }
+    }
+
+    public List<Routine> getCategoryRoutines(Long categoryId) {
+        System.out.println("service calling getCategoryRoutines");
+        Optional<Category> category = categoryRepository.findById(categoryId);
+        if (category.isPresent()) {
+            return category.get().getRoutineList();
+        } else {
+            throw new InformationNotFoundException("category not found");
+        }
+    }
+
+    public Routine updateCategoryRoutine(Long categoryId, Long routineId, Routine routineObject) {
+        System.out.println("Service calling updateCategoryRoutine");
+        try {
+            Routine routine = (routineRepository.findByCategoryId(categoryId).stream().filter(p -> p.getId().equals(routineId)).findFirst()).get();
+            routine.setProducts(routineObject.getProducts());
+            routine.setSteps(routineObject.getSteps());
+            return routineRepository.save(routine);
+        } catch (NoSuchElementException e) {
+            throw new InformationNotFoundException("routine or category not found");
+        }
+    }
+
+    public void deleteCategoryRoutine(Long categoryId, Long routineId) {
+        try {
+            Routine routine = (routineRepository.findByCategoryId(categoryId).stream().filter(p -> p.getId().equals(routineId)).findFirst()).get();
+            routineRepository.deleteById(routine.getId());
+        } catch (NoSuchElementException e) {
+            throw new InformationNotFoundException("routine or category not fount");
         }
     }
 }
