@@ -13,6 +13,9 @@ public class Routine {
     private Long id;
 
     @Column
+    private String name;
+
+    @Column
     private String products;
 
     @Column
@@ -40,6 +43,13 @@ public class Routine {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getProducts() {
@@ -70,7 +80,7 @@ public class Routine {
 
     @Override
     public String toString() {
-        return "Routine{" + "id=" + id + ", products='" + products + '\'' + ", steps='" + steps + '\'' + '}';
+        return "Routine{" + "id=" + id + ", name='" + name + '\'' + ", products='" + products + '\'' + ", steps='" + steps + '\'' + '}';
     }
 
     public Category getCategory() {
