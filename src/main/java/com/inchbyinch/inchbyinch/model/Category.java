@@ -2,6 +2,7 @@ package com.inchbyinch.inchbyinch.model;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 import javax.persistence.*;
@@ -24,6 +25,11 @@ public class Category {
     @OneToMany(mappedBy = "category", orphanRemoval = true)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Routine> routineList;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
 
     public Category(Long id, String name, String description) {
         this.id = id;
@@ -70,5 +76,13 @@ public class Category {
 
     public void setRoutineList(List<Routine> routineList) {
         this.routineList = routineList;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
