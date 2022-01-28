@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface RoutineRepository extends JpaRepository<Routine, Long> {
     Routine findByName(String routineName);
-    
+
     Routine findByNameAndIdIsNot(String routineName, Long routineId);
 
     List<Routine> findByCategoryId(Long routineId);
