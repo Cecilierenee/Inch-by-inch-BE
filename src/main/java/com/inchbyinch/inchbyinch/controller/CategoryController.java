@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -32,7 +31,7 @@ public class CategoryController {
 
    //http://localhost:9192/api/categories/{categoryId}
     @GetMapping(path = "/categories/{categoryId}")
-    public Optional getCategory(@PathVariable Long categoryId) {
+    public Category getCategory(@PathVariable Long categoryId) {
         System.out.println("getting the category with the id of " + categoryId);
         return categoryService.getCategory(categoryId);
     }
@@ -53,7 +52,7 @@ public class CategoryController {
 
     //http://localhost:9192/api/categories/{categoryId}
     @DeleteMapping("/categories/{categoryId}")
-    public Optional<Category> deleteCategory(@PathVariable(value = "categoryId") Long categoryId) {
+    public String deleteCategory(@PathVariable(value = "categoryId") Long categoryId) {
         System.out.println("deleting the category with the id of " + categoryId);
         return categoryService.deleteCategory(categoryId);
     }

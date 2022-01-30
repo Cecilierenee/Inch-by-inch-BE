@@ -26,13 +26,7 @@ public class UserProfile {
     @OneToOne(mappedBy = "userProfile")
     private User user;
 
-    public UserProfile(Long id, String firstName, String lastName, String profileDescription, User user) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.profileDescription = profileDescription;
-        this.user = user;
-    }
+    public UserProfile() {}
 
     public User getUser() {
         return user;
@@ -42,7 +36,6 @@ public class UserProfile {
         this.user = user;
     }
 
-    public UserProfile() {}
 
     public Long getId() {
         return id;

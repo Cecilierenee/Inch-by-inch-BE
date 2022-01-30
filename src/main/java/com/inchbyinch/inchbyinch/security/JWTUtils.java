@@ -15,7 +15,7 @@ import java.util.function.Function;
 public class JWTUtils {
     String SECRET_KEY = "TestKey";
 
-    {
+    public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, userDetails.getUsername());
     }

@@ -20,9 +20,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private MyUserDetailsService myUserDetailsService;
 
+
     @Autowired
     private JWTUtils jwtUtils;
 
+    @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest,
                                     HttpServletResponse httpServletResponse, FilterChain filterChain)
             throws ServletException, IOException {
@@ -30,15 +32,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         String username = null;
         String jwt = null;
+        {
         jwt = AuthorizationHeader.substring(7);
         username = jwtUtils.extractUsername(jwt);
     }
-      if(username !=null&&SecurityContextHolder.getContext().
-
-    getAuthentication() ==null)
-
-    {
-        UserDetails userDetails = this.myUserDetailsService.loadUserByUsername(username);
+      if(username !=null && SecurityContextHolder.getContext().getAuthentication() ==null) {
+        UserDetails userDetails = myUserDetailsService.loadUserByUsername(username);
         if (jwtUtils.validateToken(jwt, userDetails)) {
             UsernamePasswordAuthenticationToken
                     usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
@@ -46,7 +45,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }
-    }  filterChain.doFilter(httpServletRequest,httpServletResponse);
-}
+    }
+      filterChain.doFilter(httpServletRequest,httpServletResponse);
+    }
 }
 

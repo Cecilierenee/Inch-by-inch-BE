@@ -43,7 +43,7 @@ public class CategoryService {
         }
     }
 
-    public Optional getCategory(Long categoryId) {
+    public Category getCategory(Long categoryId) {
         System.out.println("service calling getCategory");
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
@@ -106,7 +106,7 @@ public class CategoryService {
         }
         Routine routine = routineRepository.findByNameAndUserId(routineObject.getName(), userDetails.getUser().getId());
         if (routine != null) {
-            throw new InformationExistException("routine with that name already exist")
+            throw new InformationExistException("routine with that name already exist");
         }
         routineObject.setUser(userDetails.getUser());
         routineObject.setCategory(category);
@@ -152,24 +152,25 @@ public class CategoryService {
         Optional<Routine> routine = routineRepository.findByCategoryId(categoryId).stream().filter(p -> p.getId().equals(routineId)).findFirst();
         if (!routine.isPresent()) {
             throw new InformationNotFoundException("Routine not found");
-            Routine oldRoutine = routineRepository.findByNameAndUserIdIsNot(routineObject.getName(), userDetails.getUser().getId(), routineId);
+        }
+            Routine oldRoutine = routineRepository.findByNameAndUserId(routineObject.getName(), userDetails.getUser().getId());
             if (oldRoutine != null) {
                 throw new InformationExistException("Routine already exist");
             }
             routine.get().setName(routineObject.getName());
             routine.get().setProducts(routineObject.getProducts());
             routine.get().setSteps(routineObject.getSteps());
+            return routineRepository.save(routine.get());
         }
-        return routineRepository.save(routine.get());
-    }
 
 
-    public void deleteCategoryRoutine(Long categoryId, Long routineId) {
+
+        public void deleteCategoryRoutine(Long categoryId, Long routineId) {
             System.out.println("service calling deleteCategoryRoutine");
             MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication()
                     .getPrincipal();
             Category category = routineRepository.findByIdAndUserId(categoryId, userDetails.getUser().getId());
-            if (category = null) {
+            if (category == null) {
                 throw new InformationNotFoundException("routine or category not fount");
             }
             Optional<Routine> routine = routineRepository.findByCategoryId(categoryId).stream().filter(p -> p.getId().equals(routineId)).findFirst();
