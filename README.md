@@ -24,3 +24,6 @@ Users will be able to create a hair routine, where they can add, delete, and edi
 ## My Process
 
 [Project Tracker](https://github.com/users/Cecilierenee/projects/1/views/1)
+
+1. I sstarted building my back-end first, Included websecurity so I wouldn't have to go back and refactor my whole code base. 
+2. When I was ready to run the the application, I ran into issues with 'Circle Dependency' due to my web security and authorization manager that were injected into different aspects of my app. I found that using the '@Lazy' notation on my dependencies helped to recognize which bean to create first. [Stack Over Flow](https://stackoverflow.com/questions/39823865/spring-boot-application-fails-to-start-due-to-a-circular-dependency-between-1-be)
