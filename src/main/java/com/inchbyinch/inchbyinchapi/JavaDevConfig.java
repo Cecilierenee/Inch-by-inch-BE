@@ -1,6 +1,9 @@
-package com.inchbyinch.inchbyinch;
+package com.inchbyinch.inchbyinchapi;
+
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+
 import javax.annotation.PostConstruct;
 
 @Profile("dev")
@@ -8,6 +11,6 @@ import javax.annotation.PostConstruct;
 public class JavaDevConfig {
     @PostConstruct
     public void test() {
-        System.out.println("Loading dev profile");
+        System.out.println("Loading Dev Profile");
     }
 }

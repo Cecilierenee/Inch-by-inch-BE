@@ -1,10 +1,10 @@
-package com.inchbyinch.inchbyinch;
+package com.inchbyinch.inchbyinchapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class InchByInchApplicationTests {
+class InchbyinchapiApplicationTests {
 
     @Test
     void contextLoads() {
